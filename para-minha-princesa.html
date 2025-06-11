@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para minha princesa ❤️</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+      overscroll-behavior: none; 
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #a74577, #7c2d77);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #a74577 #7c2d77;
+    }
+    body::-webkit-scrollbar {
+      width: 8px;
+    }
+    body::-webkit-scrollbar-track {
+      background: #7c2d77;
+    }
+    body::-webkit-scrollbar-thumb {
+      background-color: #a74577;
+      border-radius: 20px;
+      border: 2px solid #7c2d77;
+    }
+    #background-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #FFFFFF;
+      z-index: 200;
+      opacity: 1;
+      transition: opacity 1.5s ease-in-out;
+      pointer-events: all;
+    }
+    #background-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .initial-container {
+      position: relative;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 201; 
+    }
+    .main-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      gap: 25px;
+      opacity: 0;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    #clickButton {
+      padding: 20px 40px;
+      font-size: 24px;
+      border: none;
+      border-radius: 12px;
+      background-color: #ff4b5c;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    #clickButton:hover {
+      transform: scale(1.05);
+    }
+    .spotify-player, .couple-photo, .counter-container, .final-text {
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      color: #fff;
+    }
+    .couple-photo img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .counter-container h2 {
+      font-size: 1.2em;
+      margin-bottom: 10px;
+    }
+    #contador {
+      font-size: 1.5em;
+      font-weight: 600;
+    }
+    .final-text {
+      font-size: 1em;
+      line-height: 1.6;
+      text-align: justify;
+      padding: 15px;
+      background-color: rgba(0,0,0,0.15);
+      border-radius: 10px;
+      margin-bottom: 50px;
+    }
+    #heart-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 999;
+    }
+    .heart {
+      --heart-size: 20px;
+      position: absolute;
+      width: var(--heart-size);
+      height: var(--heart-size);
+      background-color: #a74577;
+      transform: rotate(45deg);
+      animation: fall linear infinite;
+      opacity: 0.8;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: var(--heart-size);
+      height: var(--heart-size);
+      background-color: #a74577;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: calc(var(--heart-size) / -2);
+      left: 0;
+    }
+    .heart::after {
+      top: 0;
+      left: calc(var(--heart-size) / -2);
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+      10% { opacity: 0.8; }
+      100% { transform: translateY(110vh) rotate(45deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="background-overlay"></div>
+  <div class="initial-container" id="initial-container">
+    <button id="clickButton">Clique ❤️</button>
+  </div>
+  <div class="main-container" id="main-container">
+    <div class="spotify-player">
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6u4fs9oGsLSZoPSVVXQ85z?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+    <div class="couple-photo">
+      <img src="https://i.postimg.cc/9Q5vfwjV/Whats-App-Image-2024-07-23-at-2-01-12-AM.jpg" alt="Foto do Casal">
+    </div>
+    <div class="counter-container">
+      <h2>❤️ Eu te amo há:</h2>
+      <div id="contador">
+        <span id="anos"></span> anos, 
+        <span id="dias"></span> dias, 
+        <span id="horas"></span> horas, 
+        <span id="minutos"></span> minutos e 
+        <span id="segundos"></span> segundos
+      </div>
+    </div>
+    <div class="final-text">
+      <p id="typed-text"></p>
+    </div>
+    <div class="video-container" id="video-surpresa" style="display: none; margin-top: 30px; text-align: center;">
+      <iframe width="560" height="315" src="SEU_LINK_DE_INCORPORACAO_DO_YOUTUBE_OU_VIMEO" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+  <div id="heart-container"></div>
+  <script>
+    const clickButton = document.getElementById("clickButton");
+    const initialContainer = document.getElementById("initial-container");
+    const mainContainer = document.getElementById("main-container");
+    const backgroundOverlay = document.getElementById("background-overlay");
+
+    clickButton.addEventListener("click", () => {
+      initialContainer.style.display = "none";
+      backgroundOverlay.classList.add("hidden");
+      mainContainer.style.display = "flex";
+      setTimeout(() => {
+        escreverTextoFinal("Aqui vai o seu texto final, cheio de amor e sentimento ❤️");
+      }, 2000);
+      setInterval(createHeart, 400);
+      iniciarContador();
+      setTimeout(() => {
+        document.getElementById("video-surpresa").style.display = "block";
+      }, 10000);
+    });
+
+    function iniciarContador() {
+      const dataInicio = new Date('2022-07-23T00:00:00');
+      setInterval(() => {
+        const agora = new Date();
+        const diff = agora.getTime() - dataInicio.getTime();
+        const totalSegundos = Math.floor(diff / 1000);
+        const anos = Math.floor(totalSegundos / 31536000);
+        const dias = Math.floor((totalSegundos % 31536000) / 86400);
+        const horas = Math.floor((totalSegundos % 86400) / 3600);
+        const minutos = Math.floor((totalSegundos % 3600) / 60);
+        const segundos = totalSegundos % 60;
+        document.getElementById('anos').innerText = anos;
+        document.getElementById('dias').innerText = dias;
+        document.getElementById('horas').innerText = horas;
+        document.getElementById('minutos').innerText = minutos;
+        document.getElementById('segundos').innerText = segundos;
+      }, 1000);
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      const duration = 4 + Math.random() * 5;
+      heart.style.animationDuration = duration + "s";
+      heart.style.left = Math.random() * 100 + "vw";
+      const size = 10 + Math.random() * 20;
+      heart.style.setProperty('--heart-size', size + 'px');
+      document.getElementById("heart-container").appendChild(heart);
+      setTimeout(() => {
+        heart.remove();
+      }, duration * 1000);
+    }
+
+    function escreverTextoFinal(texto, velocidade = 50) {
+      const elemento = document.getElementById('typed-text');
+      let i = 0;
+      elemento.textContent = "";
+      function digitar() {
+        if (i < texto.length) {
+          elemento.textContent += texto.charAt(i);
+          i++;
+          setTimeout(digitar, velocidade);
+        }
+      }
+      digitar();
+    }
+  </script>
+</body>
+</html>
